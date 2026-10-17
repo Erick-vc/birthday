@@ -192,8 +192,11 @@ export function createKiss(el, captionEl) {
     h.setAttribute('cx', H[0]); h.setAttribute('cy', H[1])
   }
 
-  function frame(now) {
-    const t = ((now - start) / 1000) % CYCLE
+  function frame() {
+    // Programar el siguiente cuadro primero: si algo falla, la animación no se congela
+    raf = requestAnimationFrame(frame)
+    // En móvil el timestamp de rAF puede ser anterior a `start` (t negativo); usamos performance.now()
+    const t = (Math.max(0, performance.now() - start) / 1000) % CYCLE
 
     drawArm(parts.herArm, P.herShoulder, P.herRest, track(HER_HAND, t))
     drawArm(parts.hisArm, P.hisShoulder, P.hisRest, track(HIS_HAND, t), true)
@@ -225,7 +228,7 @@ export function createKiss(el, captionEl) {
       g.setAttribute('opacity', 1 - p * p)
     })
 
-    const text = [...CAPTIONS].reverse().find(([ct]) => t >= ct)[1]
+    const text = ([...CAPTIONS].reverse().find(([ct]) => t >= ct) ?? CAPTIONS[0])[1]
     if (text !== caption && captionEl) {
       caption = text
       captionEl.style.opacity = 0
@@ -234,8 +237,6 @@ export function createKiss(el, captionEl) {
         captionEl.style.opacity = 1
       }, 250)
     }
-
-    raf = requestAnimationFrame(frame)
   }
 
   return {
