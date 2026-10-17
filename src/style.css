@@ -1,0 +1,554 @@
+@import "tailwindcss";
+
+@theme {
+  --font-script: "Dancing Script", cursive;
+  --font-name: "Great Vibes", cursive;
+  --font-body: "Quicksand", ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  background: #fffaf5;
+}
+
+.sky {
+  background: linear-gradient(180deg, #dbeafe 0%, #fce7f3 40%, #fff1f2 70%, #ecfdf5 100%);
+}
+
+/* ---------- Escenas ---------- */
+.scene {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 84px 16px 150px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(30px) scale(0.97);
+  transition: opacity 0.6s ease, transform 0.6s ease, visibility 0s linear 0.6s;
+}
+.scene.active {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity 0.7s ease 0.15s, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s;
+}
+@media (min-width: 640px) {
+  .scene { padding: 110px 24px 170px; }
+}
+.scene-inner {
+  margin: auto;
+  width: 100%;
+  max-width: 36rem;
+  text-align: center;
+}
+.scene-inner.max-w-3xl {
+  max-width: 48rem;
+}
+
+.pop {
+  opacity: 0;
+}
+.scene.active .pop {
+  animation: fadeUp 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--delay, 0s);
+}
+
+.line {
+  opacity: 0;
+  transform: translateY(14px);
+  filter: blur(4px);
+  transition: opacity 0.7s ease, transform 0.7s ease, filter 0.7s ease;
+}
+.line.shown {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+.auto-line {
+  opacity: 0;
+}
+.scene.active .auto-line {
+  animation: fadeUp 0.9s ease both;
+  animation-delay: calc(0.6s + var(--i) * 0.9s);
+}
+
+.like-show > * {
+  animation: likeIn 1s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+.like-show > :nth-child(2) { animation-delay: 0.5s; }
+.like-show > :nth-child(3) { animation-delay: 1.2s; }
+@keyframes likeIn {
+  from { opacity: 0; transform: scale(0.4); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- Botones ---------- */
+@layer components {
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 0.9rem 1.8rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn:hover { transform: translateY(-3px); }
+.btn:active { transform: scale(0.95); }
+.btn-pink {
+  background: linear-gradient(90deg, #f472b6, #fb7185);
+  box-shadow: 0 12px 24px -8px rgba(244, 63, 94, 0.55);
+}
+.btn-green {
+  background: linear-gradient(90deg, #22c55e, #10b981);
+  box-shadow: 0 12px 24px -8px rgba(22, 163, 74, 0.55);
+}
+.btn-gold {
+  background: linear-gradient(90deg, #fbbf24, #f472b6);
+  box-shadow: 0 12px 24px -8px rgba(245, 158, 11, 0.55);
+}
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: #bbf7d0;
+  transition: width 0.3s, background 0.3s;
+  cursor: pointer;
+}
+.dot.on {
+  width: 22px;
+  background: linear-gradient(90deg, #22c55e, #f472b6);
+}
+
+/* ---------- Sobre ---------- */
+.envelope {
+  cursor: pointer;
+  animation: wiggle 2.6s ease-in-out infinite;
+  filter: drop-shadow(0 14px 18px rgba(244, 114, 182, 0.35));
+}
+.envelope.open {
+  animation: none;
+}
+@keyframes wiggle {
+  0%, 65%, 100% { rotate: 0deg; }
+  72% { rotate: -5deg; }
+  79% { rotate: 5deg; }
+  86% { rotate: -3deg; }
+  93% { rotate: 2deg; }
+}
+.env-flap {
+  transform-box: fill-box;
+  transform-origin: 50% 0;
+  transition: transform 0.35s ease-in;
+}
+.envelope.open .env-flap {
+  transform: scaleY(0);
+}
+.env-flap-open {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  transform: scaleY(0);
+  transition: transform 0.35s ease-out 0.35s;
+}
+.envelope.open .env-flap-open {
+  transform: scaleY(1);
+}
+.env-letter {
+  transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.3, 1.3) 0.6s;
+}
+.envelope.open .env-letter {
+  transform: translateY(-50px);
+}
+
+/* ---------- Corona de la foto ---------- */
+.wreath-ring {
+  --r: 66px;
+  animation: spin-slow 60s linear infinite;
+}
+@media (min-width: 640px) {
+  .wreath-ring { --r: 82px; }
+}
+
+/* ---------- Cartas que se voltean ---------- */
+.card3d {
+  display: block;
+  perspective: 1000px;
+  cursor: pointer;
+}
+.card3d-inner {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.3, 1.3, 0.5, 1);
+}
+.card3d.flipped .card3d-inner {
+  transform: rotateY(180deg);
+}
+.card3d:not(.flipped):hover .card3d-inner {
+  transform: rotateY(12deg) scale(1.03);
+}
+.face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border-radius: 1.25rem;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-shadow: 0 14px 28px -12px rgba(22, 101, 52, 0.3);
+}
+.face-back {
+  transform: rotateY(180deg);
+}
+.mini-daisy {
+  width: 64px;
+  height: 64px;
+  animation: spin-slow 14s linear infinite;
+}
+.mini-daisy-lg {
+  width: 52px;
+  height: 52px;
+  animation: spin-slow 16s linear infinite;
+}
+.wish-card .face-front {
+  animation: nudge 3s ease-in-out infinite;
+}
+@keyframes nudge {
+  0%, 85%, 100% { scale: 1; }
+  92% { scale: 1.05; }
+}
+
+/* ---------- Polaroids ---------- */
+.photo-card {
+  width: min(40vw, 240px);
+  aspect-ratio: 4 / 5.6;
+}
+.polaroid {
+  justify-content: flex-start;
+  padding: 9px 9px 0;
+  background: #fff;
+  border-radius: 6px;
+}
+.polaroid::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  width: 40%;
+  height: 24px;
+  translate: -50% 0;
+  rotate: -4deg;
+  background: var(--tape);
+  opacity: 0.8;
+  border-radius: 3px;
+}
+.polaroid img {
+  display: block;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  object-fit: cover;
+  border-radius: 3px;
+}
+.polaroid .cap {
+  padding: 6px 0 10px;
+  font-family: var(--font-script);
+  font-size: clamp(1rem, 3.6vw, 1.5rem);
+  font-weight: 700;
+  color: #16a34a;
+}
+
+/* ---------- Etiqueta del panzón ---------- */
+.dove-tag {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  translate: -50% -4px;
+  white-space: nowrap;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 2px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+/* ---------- Texto ---------- */
+.name-gradient {
+  background: linear-gradient(90deg, #f472b6, #fb7185, #f59e0b, #ec4899, #f472b6);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 6s linear infinite;
+  filter: drop-shadow(0 6px 14px rgba(244, 114, 182, 0.3));
+}
+@keyframes shimmer {
+  to { background-position: 300% center; }
+}
+
+.fade-up {
+  opacity: 0;
+  animation: fadeUp 1s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+  animation-delay: var(--delay, 0s);
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+
+.twinkle {
+  animation: twinkle 2.2s ease-in-out infinite;
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.6) rotate(0); }
+  50% { opacity: 1; transform: scale(1.1) rotate(45deg); }
+}
+
+/* ---------- Banderines y serpentinas ---------- */
+.flag {
+  transform-box: fill-box;
+  transform-origin: 50% 0;
+  animation: swing 2.6s ease-in-out infinite alternate;
+}
+@keyframes swing {
+  from { transform: rotate(-7deg); }
+  to { transform: rotate(7deg); }
+}
+
+.streamer {
+  transform-box: fill-box;
+  transform-origin: 50% 0;
+  animation: streamer 3.5s ease-in-out infinite alternate;
+}
+@keyframes streamer {
+  from { transform: rotate(-4deg); }
+  to { transform: rotate(4deg); }
+}
+
+/* ---------- Nubes ---------- */
+.cloud {
+  position: absolute;
+  left: 0;
+  opacity: 0.85;
+  animation: drift linear infinite;
+}
+@keyframes drift {
+  from { transform: translateX(-30vw); }
+  to { transform: translateX(130vw); }
+}
+
+/* ---------- Prado ---------- */
+.stem-wrap {
+  position: absolute;
+  bottom: 0;
+  transform-origin: 50% 100%;
+  animation: sway 3.4s ease-in-out infinite alternate;
+}
+@keyframes sway {
+  from { transform: rotate(calc(var(--sway) * -1)); }
+  to { transform: rotate(var(--sway)); }
+}
+.stem {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  transform: translateX(-50%);
+  border-radius: 2px;
+  background: linear-gradient(#4ade80, #15803d);
+}
+.leaf {
+  position: absolute;
+  left: 50%;
+  width: 14px;
+  height: 7px;
+  border-radius: 100% 0;
+  background: #22c55e;
+}
+.daisy-head {
+  animation: spin-slow 18s linear infinite;
+}
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+
+/* ---------- Conejo ---------- */
+.bunny-hop {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: hop 3.4s ease-in-out infinite;
+}
+@keyframes hop {
+  0%, 58%, 100% { transform: translateY(0) scale(1, 1); }
+  64% { transform: translateY(0) scale(1.07, 0.92); }
+  74% { transform: translateY(-34px) scale(0.96, 1.05); }
+  84% { transform: translateY(0) scale(1.06, 0.93); }
+  90% { transform: translateY(0) scale(1, 1); }
+}
+.bunny-shadow {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: shadow 3.4s ease-in-out infinite;
+}
+@keyframes shadow {
+  0%, 64%, 84%, 100% { transform: scale(1); opacity: 0.2; }
+  74% { transform: scale(0.6); opacity: 0.1; }
+}
+.ear-twitch {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: twitch 4.2s ease-in-out infinite;
+}
+@keyframes twitch {
+  0%, 78%, 100% { transform: rotate(0); }
+  84% { transform: rotate(-14deg); }
+  90% { transform: rotate(7deg); }
+}
+.eye {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: blink 4.5s infinite;
+}
+@keyframes blink {
+  0%, 94%, 100% { transform: scaleY(1); }
+  97% { transform: scaleY(0.1); }
+}
+
+/* ---------- Palomas ---------- */
+.dove-fly {
+  position: absolute;
+  left: 0;
+  animation: fly var(--d) linear forwards;
+  filter: drop-shadow(0 8px 10px rgba(190, 24, 93, 0.18));
+}
+.dove-fly.rtl {
+  animation-name: fly-rtl;
+}
+.dove-fly.rtl svg {
+  transform: scaleX(-1);
+}
+@keyframes fly {
+  from { transform: translate(-25vw, 0); }
+  to { transform: translate(110vw, -12vh); }
+}
+@keyframes fly-rtl {
+  from { transform: translate(110vw, 0); }
+  to { transform: translate(-25vw, -12vh); }
+}
+.dove-bob {
+  animation: bob 1.6s ease-in-out infinite alternate;
+}
+@keyframes bob {
+  to { transform: translateY(16px); }
+}
+.wing {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: flap 0.45s ease-in-out infinite alternate;
+}
+.wing-back {
+  animation-delay: -0.12s;
+}
+@keyframes flap {
+  from { transform: scaleY(1); }
+  to { transform: scaleY(-0.55); }
+}
+
+/* ---------- Cositas cayendo ---------- */
+.faller {
+  position: absolute;
+  top: -8vh;
+  left: var(--x);
+  opacity: 0.9;
+  animation: fall var(--d) linear var(--delay) infinite;
+}
+@keyframes fall {
+  to { transform: translateY(116vh); }
+}
+.flutter {
+  animation: flutter var(--sd) ease-in-out infinite alternate;
+}
+@keyframes flutter {
+  from { transform: translateX(calc(var(--drift) * -1)) rotate(calc(var(--rot) * -1)); }
+  to { transform: translateX(var(--drift)) rotate(var(--rot)); }
+}
+.flip {
+  animation: flip var(--sd) linear infinite;
+}
+@keyframes flip {
+  from { transform: rotate3d(1, 1, 0, 0deg); }
+  to { transform: rotate3d(1, 1, 0, 360deg); }
+}
+.petal {
+  border-radius: 150% 0 150% 0;
+  box-shadow: inset 0 0 4px rgba(244, 114, 182, 0.45);
+}
+
+.burst-piece {
+  position: fixed;
+  will-change: transform, opacity;
+}
+
+/* ---------- Pastel ---------- */
+.flame {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: flicker 0.22s ease-in-out infinite alternate;
+  transition: opacity 0.35s, transform 0.35s;
+}
+@keyframes flicker {
+  from { transform: scale(1, 1) rotate(-3deg); }
+  to { transform: scale(0.9, 1.1) rotate(3deg); }
+}
+.cake.out .flame {
+  animation: none;
+  transform: scale(0);
+  opacity: 0;
+}
+.smoke {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.cake.out .smoke {
+  animation: smoke 1.8s ease-out forwards;
+}
+@keyframes smoke {
+  0% { opacity: 0.7; transform: translateY(0) scale(0.6); }
+  100% { opacity: 0; transform: translateY(-45px) scale(1.8); }
+}
+
+/* ---------- Tarjetas ---------- */
+.wish-card:hover .wish-icon {
+  transform: scale(1.2) rotate(-8deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faller,
+  .dove-fly,
+  .cloud {
+    display: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
