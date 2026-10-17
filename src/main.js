@@ -241,7 +241,6 @@ $('music').addEventListener('click', () => {
 // ---------- Decoraciones fijas ----------
 function decorations() {
   document.querySelectorAll('.vine').forEach((el) => (el.innerHTML = vine()))
-  document.querySelectorAll('.mini-daisy').forEach((el) => (el.innerHTML = daisy()))
   document.querySelectorAll('.corner-daisy').forEach((el, i) => {
     el.innerHTML = daisy(i % 2 ? PINK : undefined)
     el.classList.add('daisy-head')
@@ -271,38 +270,14 @@ function openEnvelope() {
   if (envelopeOpened) return
   envelopeOpened = true
   envEl.classList.add('open')
+  startSong()
   setTimeout(() => burstAt(envEl, isMobile ? 70 : 120, 1), 500)
   setTimeout(() => go(1), 1700)
 }
 envEl.addEventListener('click', openEnvelope)
 $('open-envelope').addEventListener('click', openEnvelope)
 
-// ---------- Escena: el día que te conocí ----------
-const metLines = [...document.querySelectorAll('#s-met .line')]
-const metLabels = ['¿Qué pasó ese día? 👀', '¿Y luego? 🙈', '¿Y ahora? 🥺', 'Siguiente 👉']
-let metStep = 0
-$('met-btn').addEventListener('click', (e) => {
-  if (metStep < metLines.length) {
-    metLines[metStep].classList.add('shown')
-    metStep++
-    e.currentTarget.textContent = metLabels[metStep]
-    if (metStep === metLines.length) setTimeout(() => burstAt(metLines[metStep - 1], 40, 0.6, true), 300)
-  } else go(current + 1)
-})
-function resetMet() {
-  metStep = 0
-  metLines.forEach((l) => l.classList.remove('shown'))
-  $('met-btn').textContent = metLabels[0]
-}
-
-// ---------- Escena: fotos y deseos (cartas que se voltean) ----------
-document.addEventListener('click', (e) => {
-  const card = e.target.closest('.card3d')
-  if (!card || card.classList.contains('flipped')) return
-  card.classList.add('flipped')
-  setTimeout(() => burstAt(card, 26, 0.5), 350)
-})
-
+// ---------- Escena: deseos ----------
 function wishes() {
   const list = [
     ['🎓', 'Tu carrera', 'Que acabes tu carrera y logres todo lo que te propongas.'],
@@ -316,41 +291,22 @@ function wishes() {
     .map(([icon, title, text], i) => {
       const green = i % 2 === 1
       return `
-      <div class="pop" style="--delay:${0.3 + i * 0.08}s">
-        <button class="card3d wish-card h-32 w-full sm:h-40">
-          <span class="card3d-inner">
-            <span class="face face-front ${green ? 'bg-gradient-to-br from-emerald-100 to-lime-50 ring-emerald-200' : 'bg-gradient-to-br from-pink-100 to-rose-50 ring-rose-200'} ring-1">
-              <span class="mini-daisy-lg">${daisy(green ? undefined : PINK)}</span>
-              <span class="text-xs font-bold tracking-wide ${green ? 'text-emerald-600' : 'text-rose-500'} uppercase">Toca 🎁</span>
-            </span>
-            <span class="face face-back bg-white ring-1 ${green ? 'ring-emerald-200' : 'ring-rose-200'} px-3">
-              <span class="font-script text-xl font-bold sm:text-2xl ${green ? 'text-emerald-600' : 'text-rose-500'}">${icon} ${title}</span>
-              <span class="mt-1 text-[13px] leading-snug text-rose-900/80 sm:text-sm">${text}</span>
-            </span>
-          </span>
-        </button>
+      <div class="pop relative flex flex-col items-center justify-center rounded-2xl bg-white/90 px-3 py-4 shadow-lg ring-1 ${green ? 'shadow-emerald-100 ring-emerald-200' : 'shadow-rose-100 ring-rose-200'}" style="--delay:${0.25 + i * 0.12}s">
+        <div class="absolute -top-3 -right-2 h-8 w-8 daisy-head" style="animation-duration:${14 + i * 2}s">${daisy(green ? undefined : PINK)}</div>
+        <span class="font-script text-xl font-bold sm:text-2xl ${green ? 'text-emerald-600' : 'text-rose-500'}">${icon} ${title}</span>
+        <span class="mt-1 text-[13px] leading-snug text-rose-900/80 sm:text-sm">${text}</span>
       </div>`
     })
     .join('')
 }
 
-// ---------- Escena: me gustas ----------
-$('like-btn').addEventListener('click', (e) => {
-  e.currentTarget.classList.add('hidden')
-  const reveal = $('like-reveal')
-  reveal.classList.remove('hidden')
-  reveal.classList.add('like-show')
-  setTimeout(() => {
-    burstAt(reveal.firstElementChild, isMobile ? 70 : 120, 1, true)
-    heartRain()
-  }, 300)
-})
+// ---------- Lluvia de corazones ----------
 function heartRain() {
   const layer = $('burst')
-  for (let i = 0; i < 36; i++) {
+  for (let i = 0; i < 30; i++) {
     const p = document.createElement('div')
     p.className = 'burst-piece'
-    const s = rand(14, 30)
+    const s = rand(14, 28)
     p.style.cssText = `left:${rand(0, 100)}vw;top:-40px;width:${s}px;height:${s}px`
     p.innerHTML = heart(pick(['#f472b6', '#fb7185', '#e11d48', '#4ade80', '#22c55e']))
     layer.append(p)
@@ -363,47 +319,45 @@ function heartRain() {
     ).onfinish = () => p.remove()
   }
 }
-function resetLike() {
-  $('like-btn').classList.remove('hidden')
-  $('like-reveal').classList.add('hidden')
-  $('like-reveal').classList.remove('like-show')
-}
 
-// ---------- Escena: pastel ----------
+// ---------- Escena: pastel y final ----------
 const cakeEl = $('cake')
 cakeEl.innerHTML = cake()
 $('blow').addEventListener('click', (e) => {
-  const out = cakeEl.classList.toggle('out')
-  if (out) {
-    const r = cakeEl.getBoundingClientRect()
-    burst(r.left + r.width / 2, r.top + r.height * 0.25, isMobile ? 90 : 160, isMobile ? 0.8 : 1.1)
-    $('wish-msg').classList.remove('opacity-0')
-    e.currentTarget.textContent = 'Encender otra vez 🕯️'
-    $('to-final').classList.remove('hidden')
-    startSong()
-  } else {
-    $('wish-msg').classList.add('opacity-0')
-    e.currentTarget.textContent = 'Soplar las velas 🌬️'
-  }
+  cakeEl.classList.add('out')
+  e.currentTarget.classList.add('hidden')
+  const r = cakeEl.getBoundingClientRect()
+  burst(r.left + r.width / 2, r.top + r.height * 0.25, isMobile ? 90 : 160, isMobile ? 0.8 : 1.1)
+  startSong()
+  const fin = $('final')
+  fin.classList.remove('hidden')
+  fin.classList.add('like-show')
+  setTimeout(() => fin.scrollIntoView({ behavior: 'smooth', block: 'end' }), 400)
+  setTimeout(heartRain, 1200)
+  setTimeout(() => spawnGrayPair(rand(10, 25)), 2500)
 })
 function resetCake() {
   cakeEl.classList.remove('out')
-  $('wish-msg').classList.add('opacity-0')
-  $('blow').textContent = 'Soplar las velas 🌬️'
-  $('to-final').classList.add('hidden')
+  $('blow').classList.remove('hidden')
+  $('final').classList.add('hidden')
+  $('final').classList.remove('like-show')
 }
 
 // ---------- Navegación entre escenas ----------
 const scenes = [...document.querySelectorAll('.scene')]
 const kiss = createKiss($('kiss'), $('kiss-caption'))
 let current = -1
+let kissTimer = 0
 
 const hooks = {
-  's-kiss': { enter: () => kiss.start(), leave: () => kiss.stop() },
-  's-final': {
+  's-kiss': {
     enter: () => {
-      setTimeout(() => burst(innerWidth / 2, innerHeight * 0.35, isMobile ? 80 : 140, 1.1), 400)
-      setTimeout(() => spawnGrayPair(rand(10, 25)), 1200)
+      kiss.start()
+      kissTimer = setTimeout(heartRain, 1800)
+    },
+    leave: () => {
+      kiss.stop()
+      clearTimeout(kissTimer)
     },
   },
 }
@@ -431,10 +385,7 @@ function go(i) {
 function restart() {
   envelopeOpened = false
   envEl.classList.remove('open')
-  resetMet()
-  resetLike()
   resetCake()
-  document.querySelectorAll('.card3d.flipped').forEach((c) => c.classList.remove('flipped'))
   go(0)
 }
 

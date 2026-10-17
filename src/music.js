@@ -21,9 +21,12 @@ export function stopSong() {
 
 export function playSong(onEnd) {
   stopSong()
-  const current = (ctx = new AudioContext())
+  // En iPhone esto hace que suene aunque esté en modo silencio
+  if (navigator.audioSession) navigator.audioSession.type = 'playback'
+  const current = (ctx = new (window.AudioContext || window.webkitAudioContext)())
+  ctx.resume()
   const master = ctx.createGain()
-  master.gain.value = 0.22
+  master.gain.value = 0.35
   master.connect(ctx.destination)
 
   let t = ctx.currentTime + 0.1

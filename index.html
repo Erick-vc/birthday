@@ -46,7 +46,7 @@
 
     <!-- Escenas -->
     <main id="scenes" class="fixed inset-0 z-20">
-      <!-- 0. Sobre -->
+      <!-- 1. Sobre -->
       <section class="scene" id="s-intro">
         <div class="scene-inner">
           <p class="pop font-script text-4xl font-bold text-emerald-600 sm:text-5xl" style="--delay:.1s">Hola, Gisela 👋</p>
@@ -58,7 +58,7 @@
         </div>
       </section>
 
-      <!-- 1. Feliz cumpleaños -->
+      <!-- 2. Feliz cumpleaños -->
       <section class="scene" id="s-hero">
         <div class="scene-inner">
           <p class="pop mx-auto mb-3 w-fit rounded-full bg-white/75 px-5 py-1.5 text-sm font-semibold text-rose-400 shadow-sm ring-1 ring-rose-100 sm:text-base" style="--delay:.1s">✿ Hoy es un día muy especial ✿</p>
@@ -71,82 +71,57 @@
             <h2 class="name-gradient font-name px-6 py-2 text-[5.5rem] leading-[1.15] sm:text-[9.5rem]">Gisela</h2>
           </div>
           <p class="pop mx-auto mt-1 max-w-md text-lg font-medium text-rose-800/80 sm:text-xl" style="--delay:.9s">Hoy es tu día, y quise llenarlo de margaritas porque sé que te encantan. 🌼</p>
-          <button class="pop btn btn-pink mt-7" style="--delay:1.2s" data-next>Hay más… 👉</button>
+          <button class="pop btn btn-pink mt-7" style="--delay:1.2s" data-next>Ver mi sorpresa 👉</button>
         </div>
       </section>
 
-      <!-- 2. El día que te conocí -->
+      <!-- 3. El día que te conocí -->
       <section class="scene" id="s-met">
         <div class="scene-inner">
-          <div id="wreath" class="pop relative mx-auto h-36 w-36 sm:h-44 sm:w-44" style="--delay:.1s">
+          <div id="wreath" class="pop relative mx-auto h-28 w-28 sm:h-40 sm:w-40" style="--delay:.1s">
             <div class="absolute inset-3 overflow-hidden rounded-full bg-white shadow-xl shadow-rose-200 ring-4 ring-white">
               <img src="/fotos/gisela.webp" alt="Gisela" class="h-full w-full scale-110 object-cover" />
             </div>
           </div>
-          <h3 class="pop mt-5 font-script text-4xl font-bold text-rose-500 sm:text-5xl" style="--delay:.3s">El día que te conocí</h3>
-          <div class="vine pop mx-auto my-3 h-7 w-44" style="--delay:.4s"></div>
-          <div class="mx-auto max-w-md space-y-3 text-lg font-medium text-rose-900/85 sm:text-xl">
-            <p class="line">Fue de casualidad, algo que no esperaba para nada.</p>
-            <p class="line">Pero desde ese día llamaste mi atención…</p>
-            <p class="line font-script text-3xl font-bold text-emerald-600 sm:text-4xl">…y hasta ahora eso no ha cambiado. 💚</p>
+          <h3 class="pop mt-4 font-script text-4xl font-bold text-rose-500 sm:text-5xl" style="--delay:.25s">El día que te conocí</h3>
+          <div class="vine pop mx-auto my-2 h-7 w-44" style="--delay:.35s"></div>
+          <div class="mx-auto max-w-md space-y-2.5 text-lg font-medium text-rose-900/85 sm:text-xl">
+            <p class="auto-line" style="--i:0">Fue de casualidad, algo que no esperaba para nada.</p>
+            <p class="auto-line" style="--i:1">Pero desde ese día llamaste mi atención…</p>
+            <p class="auto-line font-script text-3xl font-bold text-emerald-600 sm:text-4xl" style="--i:2">…y hasta ahora eso no ha cambiado. 💚</p>
+            <p class="auto-line" style="--i:3">Soy muy feliz de haberte conocido. Cuando te veo feliz, yo también lo estoy.</p>
+            <p class="auto-line" style="--i:4">Y te mereces todo lo bonito que te pase, de verdad. 🌼</p>
           </div>
-          <button id="met-btn" class="pop btn btn-green mt-6" style="--delay:.6s">¿Qué pasó ese día? 👀</button>
+          <button class="pop btn btn-green mt-6" style="--delay:2.2s" data-next>Siguiente 👉</button>
         </div>
       </section>
 
-      <!-- 3. Fotos -->
+      <!-- 4. Fotos -->
       <section class="scene" id="s-photos">
         <div class="scene-inner max-w-3xl">
           <h3 class="pop font-script text-4xl font-bold text-emerald-600 sm:text-5xl" style="--delay:.1s">Nuestros momentos 📸</h3>
-          <p class="pop mt-1 text-rose-800/70" style="--delay:.2s">Toca cada foto para descubrirla</p>
-          <div class="mt-6 flex items-start justify-center gap-4 sm:gap-10">
-            <div class="pop" style="--delay:.35s">
-              <button class="card3d photo-card -rotate-3" style="--tape:#86efac">
-                <span class="card3d-inner">
-                  <span class="face face-front bg-gradient-to-br from-emerald-100 to-lime-50"><span class="mini-daisy"></span><span class="font-script text-2xl font-bold text-emerald-600">Toca 📸</span></span>
-                  <span class="face face-back polaroid"><img src="/fotos/desierto.webp" alt="Gisela y Erick en el desierto" /><span class="cap">Aventuras contigo ☀️</span></span>
-                </span>
-              </button>
-            </div>
-            <div class="pop sm:mt-10" style="--delay:.5s">
-              <button class="card3d photo-card rotate-3" style="--tape:#f9a8d4">
-                <span class="card3d-inner">
-                  <span class="face face-front bg-gradient-to-br from-pink-100 to-rose-50"><span class="mini-daisy"></span><span class="font-script text-2xl font-bold text-rose-500">Toca 📸</span></span>
-                  <span class="face face-back polaroid"><img src="/fotos/noche.webp" alt="Gisela y Erick de noche" /><span class="cap">Esa noche bonita 🌙</span></span>
-                </span>
-              </button>
-            </div>
+          <div class="mt-8 flex items-start justify-center gap-4 sm:gap-10">
+            <figure class="photo-drop polaroid photo-card -rotate-3" style="--tape:#86efac;--delay:.3s">
+              <img src="/fotos/desierto.webp" alt="Gisela y Erick en el desierto" />
+              <figcaption class="cap">Aventuras contigo ☀️</figcaption>
+            </figure>
+            <figure class="photo-drop polaroid photo-card rotate-3 sm:mt-10" style="--tape:#f9a8d4;--delay:.6s">
+              <img src="/fotos/noche.webp" alt="Gisela y Erick de noche" />
+              <figcaption class="cap">Esa noche bonita 🌙</figcaption>
+            </figure>
           </div>
-          <button class="pop btn btn-pink mt-8" style="--delay:.7s" data-next>Siguiente 👉</button>
+          <button class="pop btn btn-pink mt-8" style="--delay:1s" data-next>Siguiente 👉</button>
         </div>
       </section>
 
-      <!-- 4. Besito -->
+      <!-- 5. Besito + me gustas -->
       <section class="scene" id="s-kiss">
         <div class="scene-inner">
           <h3 class="pop font-script text-4xl font-bold text-rose-500 sm:text-5xl" style="--delay:.1s">Nuestro besito especial 🤭</h3>
-          <div id="kiss" class="pop mx-auto mt-4 w-[min(88vw,440px)]" style="--delay:.3s"></div>
-          <p id="kiss-caption" class="mt-3 min-h-10 font-script text-2xl font-bold text-emerald-600 transition-opacity duration-300 sm:text-3xl"></p>
-          <button class="pop btn btn-green mt-4" style="--delay:.6s" data-next>Siguiente 👉</button>
-        </div>
-      </section>
-
-      <!-- 5. Lo que quiero decirte -->
-      <section class="scene" id="s-words">
-        <div class="scene-inner">
-          <div class="pop relative mx-auto rounded-[2rem] bg-white/90 p-7 shadow-xl shadow-rose-200/50 ring-1 ring-rose-100 sm:p-10" style="--delay:.1s">
-            <div class="corner-daisy absolute -top-5 -left-5 h-12 w-12 sm:h-14 sm:w-14"></div>
-            <div class="corner-daisy absolute -right-4 -bottom-4 h-12 w-12 sm:h-14 sm:w-14"></div>
-            <h3 class="font-script text-4xl font-bold text-rose-500 sm:text-5xl">Lo que quiero decirte</h3>
-            <div class="vine mx-auto my-3 h-7 w-44"></div>
-            <div class="space-y-3 text-lg leading-relaxed text-rose-900/85">
-              <p class="auto-line" style="--i:0">Soy muy feliz de haberte conocido aquel día.</p>
-              <p class="auto-line" style="--i:1">Cuando te veo feliz, yo también lo estoy. Tu felicidad es mi felicidad.</p>
-              <p class="auto-line" style="--i:2">Verte sonreír me alegra el día, aunque no siempre te lo diga.</p>
-              <p class="auto-line" style="--i:3">Y te mereces todo lo bonito que te pase, de verdad. 🌼</p>
-            </div>
-          </div>
-          <button class="pop btn btn-pink mt-7" style="--delay:1.2s" data-next>Tengo unos deseos para ti 🎁</button>
+          <div id="kiss" class="pop mx-auto mt-3 w-[min(80vw,400px)]" style="--delay:.3s"></div>
+          <p id="kiss-caption" class="mt-2 min-h-9 font-script text-2xl font-bold text-emerald-600 transition-opacity duration-300 sm:text-3xl"></p>
+          <p class="pop name-gradient font-name mx-auto mt-2 w-fit px-4 text-5xl leading-tight sm:text-7xl" style="--delay:1.6s">Me gustas mucho</p>
+          <button class="pop btn btn-green mt-5" style="--delay:2.2s" data-next>Siguiente 👉</button>
         </div>
       </section>
 
@@ -154,46 +129,25 @@
       <section class="scene" id="s-wishes">
         <div class="scene-inner max-w-3xl">
           <h3 class="pop font-script text-4xl font-bold text-rose-500 sm:text-5xl" style="--delay:.1s">Mis deseos para ti</h3>
-          <p class="pop mt-1 text-rose-800/70" style="--delay:.2s">Toca cada florcita para abrirla 🌼</p>
           <div id="wishes" class="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4"></div>
-          <button class="pop btn btn-green mt-6" style="--delay:.9s" data-next>Siguiente 👉</button>
+          <button class="pop btn btn-pink mt-6" style="--delay:1.1s" data-next>Ahora sí, el pastel 🎂</button>
         </div>
       </section>
 
-      <!-- 7. Me gustas -->
-      <section class="scene" id="s-like">
-        <div class="scene-inner">
-          <p class="pop font-script text-4xl font-bold text-rose-500 sm:text-5xl" style="--delay:.1s">Una última cosita antes del pastel…</p>
-          <button id="like-btn" class="pop btn btn-pink mt-8" style="--delay:.5s">¿Qué cosa? 🙈</button>
-          <div id="like-reveal" class="hidden">
-            <p class="name-gradient font-name px-4 text-7xl leading-tight sm:text-9xl">Me gustas mucho</p>
-            <p class="mt-1 font-script text-3xl font-bold text-emerald-600 sm:text-4xl">muchísimo, Gisela 💚</p>
-            <button class="btn btn-green mt-8" data-next>Ahora sí, el pastel 🎂</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- 8. Pastel -->
+      <!-- 7. Pastel y final -->
       <section class="scene" id="s-cake">
         <div class="scene-inner">
           <h3 class="pop font-script text-4xl font-bold text-rose-500 sm:text-5xl" style="--delay:.1s">Pide un deseo 🎂</h3>
           <p class="pop mt-1 text-rose-800/70" style="--delay:.2s">Cierra los ojos, piensa en algo bonito… y sopla las velas.</p>
-          <div class="pop" style="--delay:.35s"><div id="cake" class="cake mx-auto mt-5 w-52 sm:w-68"></div></div>
+          <div class="pop" style="--delay:.35s"><div id="cake" class="cake mx-auto mt-4 w-48 sm:w-64"></div></div>
           <button id="blow" class="pop btn btn-gold mt-5" style="--delay:.6s">Soplar las velas 🌬️</button>
-          <p id="wish-msg" class="mt-4 font-script text-3xl font-bold text-rose-500 opacity-0 transition duration-700 sm:text-4xl">¡Que se cumplan todos tus deseos! ✨</p>
-          <button id="to-final" class="btn btn-pink mt-4 hidden" data-next>Una cosita más 💌</button>
-        </div>
-      </section>
-
-      <!-- 9. Final -->
-      <section class="scene" id="s-final">
-        <div class="scene-inner">
-          <h3 class="pop font-script text-5xl font-bold text-rose-500 sm:text-6xl" style="--delay:.1s">¡Feliz cumpleaños!</h3>
-          <p class="pop name-gradient font-name mx-auto w-fit px-6 text-8xl leading-[1.2] sm:text-9xl" style="--delay:.3s">Gisela</p>
-          <p class="pop mx-auto max-w-md text-lg font-medium text-rose-800/80" style="--delay:.5s">Que este año te trate bonito, como te mereces.</p>
-          <p class="pop mt-4 font-script text-3xl font-bold text-emerald-600 sm:text-4xl" style="--delay:.7s">Con cariño, Erick 💚</p>
-          <p class="pop mx-auto mt-5 w-fit rounded-2xl bg-white/80 px-4 py-2 text-sm font-medium text-slate-600 ring-1 ring-slate-200" style="--delay:1s">PD: la paloma gris que pasa volando es el panzón de Erick 🐦🤭</p>
-          <button id="restart" class="pop btn btn-green mt-6" style="--delay:1.2s">Ver otra vez 🔁</button>
+          <div id="final" class="hidden">
+            <p class="mt-4 font-script text-3xl font-bold text-rose-500 sm:text-4xl">¡Que se cumplan todos tus deseos! ✨</p>
+            <p class="mt-2 text-lg font-medium text-rose-800/80">Feliz cumpleaños, Gisela. Que este año te trate bonito.</p>
+            <p class="mt-3 font-script text-3xl font-bold text-emerald-600 sm:text-4xl">Con cariño, Erick 💚</p>
+            <p class="mx-auto mt-4 w-fit rounded-2xl bg-white/80 px-4 py-2 text-sm font-medium text-slate-600 ring-1 ring-slate-200">PD: la paloma gris que pasa volando es el panzón de Erick 🐦🤭</p>
+            <button id="restart" class="btn btn-green mt-5">Ver otra vez 🔁</button>
+          </div>
         </div>
       </section>
     </main>
